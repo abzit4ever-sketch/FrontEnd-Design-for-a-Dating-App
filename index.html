@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoveLink - Find Your Perfect Match</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
+  <script src="https://unpkg.com/react-router-dom@6.26.2/dist/umd/react-router-dom.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      overflow: hidden;
+    }
+    .rainbow {
+      height: 100vh;
+      width: 0;
+      top: 0;
+      position: absolute;
+      transform: rotate(10deg);
+      transform-origin: top right;
+      z-index: 0;
+    }
+    .rainbow:nth-child(1) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 45s linear infinite slide;
+      animation-delay: -1.8s;
+    }
+    .rainbow:nth-child(2) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 43.5s linear infinite slide;
+      animation-delay: -3.6s;
+    }
+    .rainbow:nth-child(3) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 42s linear infinite slide;
+      animation-delay: -5.4s;
+    }
+    .rainbow:nth-child(4) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 40.5s linear infinite slide;
+      animation-delay: -7.2s;
+    }
+    .rainbow:nth-child(5) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 39s linear infinite slide;
+      animation-delay: -9s;
+    }
+    .rainbow:nth-child(6) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 37.5s linear infinite slide;
+      animation-delay: -10.8s;
+    }
+    .rainbow:nth-child(7) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 36s linear infinite slide;
+      animation-delay: -12.6s;
+    }
+    .rainbow:nth-child(8) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 34.5s linear infinite slide;
+      animation-delay: -14.4s;
+    }
+    .rainbow:nth-child(9) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 33s linear infinite slide;
+      animation-delay: -16.2s;
+    }
+    .rainbow:nth-child(10) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 31.5s linear infinite slide;
+      animation-delay: -18s;
+    }
+    .rainbow:nth-child(11) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 30s linear infinite slide;
+      animation-delay: -19.8s;
+    }
+    .rainbow:nth-child(12) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 28.5s linear infinite slide;
+      animation-delay: -21.6s;
+    }
+    .rainbow:nth-child(13) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 27s linear infinite slide;
+      animation-delay: -23.4s;
+    }
+    .rainbow:nth-child(14) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 25.5s linear infinite slide;
+      animation-delay: -25.2s;
+    }
+    .rainbow:nth-child(15) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 24s linear infinite slide;
+      animation-delay: -27s;
+    }
+    .rainbow:nth-child(16) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 22.5s linear infinite slide;
+      animation-delay: -28.8s;
+    }
+    .rainbow:nth-child(17) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 21s linear infinite slide;
+      animation-delay: -30.6s;
+    }
+    .rainbow:nth-child(18) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 19.5s linear infinite slide;
+      animation-delay: -32.4s;
+    }
+    .rainbow:nth-child(19) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 18s linear infinite slide;
+      animation-delay: -34.2s;
+    }
+    .rainbow:nth-child(20) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 16.5s linear infinite slide;
+      animation-delay: -36s;
+    }
+    .rainbow:nth-child(21) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(96, 165, 250), 
+                  130px 0 80px 40px white;
+      animation: 15s linear infinite slide;
+      animation-delay: -37.8s;
+    }
+    .rainbow:nth-child(22) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(94, 234, 212), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 13.5s linear infinite slide;
+      animation-delay: -39.6s;
+    }
+    .rainbow:nth-child(23) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(94, 234, 212), 50px 0 50px 25px rgb(232, 121, 249), 
+                  130px 0 80px 40px white;
+      animation: 12s linear infinite slide;
+      animation-delay: -41.4s;
+    }
+    .rainbow:nth-child(24) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(96, 165, 250), 
+                  0 0 50px 25px rgb(232, 121, 249), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 10.5s linear infinite slide;
+      animation-delay: -43.2s;
+    }
+    .rainbow:nth-child(25) { 
+      box-shadow: -130px 0 80px 40px white, -50px 0 50px 25px rgb(232, 121, 249), 
+                  0 0 50px 25px rgb(96, 165, 250), 50px 0 50px 25px rgb(94, 234, 212), 
+                  130px 0 80px 40px white;
+      animation: 9s linear infinite slide;
+      animation-delay: -45s;
+    }
+    @keyframes slide {
+      from { right: -25vw; }
+      to { right: 125vw; }
+    }
+    .h {
+      box-shadow: 0 0 50vh 40vh white;
+      width: 100vw;
+      height: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      z-index: 1;
+    }
+    .v {
+      box-shadow: 0 0 35vw 25vw white;
+      width: 0;
+      height: 100vh;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      z-index: 1;
+    }
+    .swipe-card {
+      transition: transform 0.3s ease;
+    }
+    .swipe-card.swiped-left {
+      transform: translateX(-100vw);
+    }
+    .swipe-card.swiped-right {
+      transform: translateX(100vw);
+    }
+  </style>
+</head>
+<body>
+  <div id="root" className="font-sans"></div>
+  <div id="fallback" style="display: none; text-align: center; padding: 20px;">
+    <h2 style="color: red;">Failed to load LoveLink</h2>
+    <p>Please check the console for errors or refresh the page. If the issue persists, try disabling ad blockers or using a different browser.</p>
+  </div>
+
+  <script type="text/babel" data-presets="react">
+    console.log('Script started');
+
+    // Fallback App without React Router
+    function FallbackApp() {
+      const [user, setUser] = React.useState(null);
+
+      const logout = () => {
+        console.log('Logging out');
+        setUser(null);
+      };
+
+      return (
+        <div>
+          <nav className="bg-white shadow-lg py-4 px-6 fixed w-full top-0 z-20">
+            <div className="max-w-7xl mx-auto flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-rose-600">LoveLink</h1>
+              <div className="space-x-4">
+                {user ? (
+                  <>
+                                        <button onClick={logout} className="text-gray-600 hover:text-rose-600">Logout</button>
+                  </>
+                ) : (
+                  <span className="text-gray-600">Login (Routing Disabled)</span>
+                )}
+              </div>
+            </div>
+          </nav>
+          <section className="relative h-screen flex items-center justify-center overflow-hidden">
+            {Array.from({ length: 25 }).map((_, i) => (
+              <div key={i} className="rainbow" />
+            ))}
+            <div className="h" />
+            <div className="v" />
+            <div className="relative z-10 text-center max-w-2xl mx-auto px-4 text-pink">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Discover Your Soulmate</h2>
+              <p className="text-lg mb-6">LoveLink connects you with people who share your passions and dreams. Begin your love story now!</p>
+              <p className="text-red-600">Routing is disabled due to a loading issue. Please check the console.</p>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    // Check if ReactRouterDOM is available
+    if (!window.ReactRouterDOM) {
+      console.error('ReactRouterDOM not loaded. Falling back to basic app.');
+      try {
+        const rootElement = document.getElementById('root');
+        if (!rootElement) {
+          console.error('Root element not found');
+          document.getElementById('fallback').style.display = 'block';
+          throw new Error('Root element not found');
+        }
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<FallbackApp />);
+        console.log('Fallback app rendered successfully');
+      } catch (error) {
+        console.error('Failed to render fallback app:', error);
+        document.getElementById('fallback').style.display = 'block';
+      }
+    } else {
+      const { BrowserRouter, Routes, Route, Link, useNavigate } = window.ReactRouterDOM;
+
+      function ErrorBoundary({ children }) {
+        const [hasError, setHasError] = React.useState(false);
+
+        React.useEffect(() => {
+          const errorHandler = (error) => {
+            console.error('Error caught in ErrorBoundary:', error);
+            setHasError(true);
+          };
+          window.addEventListener('error', errorHandler);
+          return () => window.removeEventListener('error', errorHandler);
+        }, []);
+
+        if (hasError) {
+          return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-red-600">Something went wrong</h2>
+                <p className="mt-2">Please try refreshing the page.</p>
+                <a href="/" className="mt-4 inline-block bg-rose-600 text-white px-6 py-3 rounded-full">Back to Home</a>
+              </div>
+            </div>
+          );
+        }
+        return children;
+      }
+
+      function Navbar({ user, logout }) {
+        console.log('Rendering Navbar, user:', user);
+        return (
+          <nav className="bg-white shadow-lg py-4 px-6 fixed w-full top-0 z-20">
+            <div className="max-w-7xl mx-auto flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-rose-600">LoveLink</h1>
+              <div className="space-x-4">
+                <Link to="/" className="text-gray-600 hover:text-rose-600">Home</Link>
+                {user ? (
+                  <>
+                    <Link to="/swipe" className="text-gray-600 hover:text-rose-600">Swipe</Link>
+                    <Link to="/profile" className="text-gray-600 hover:text-rose-600">Profile</Link>
+                    <button onClick={logout} className="text-gray-600 hover:text-rose-600">Logout</button>
+                  </>
+                ) : (
+                  <Link to="/login" className="text-gray-600 hover:text-rose-600">Login</Link>
+                )}
+              </div>
+            </div>
+          </nav>
+        );
+      }
+
+      function Hero() {
+        console.log('Rendering Hero');
+        return (
+          <section className="relative h-screen flex items-center justify-center overflow-hidden">
+            {Array.from({ length: 25 }).map((_, i) => (
+              <div key={i} className="rainbow" />
+            ))}
+            <div className="h" />
+            <div className="v" />
+            <div className="relative z-10 text-center max-w-2xl mx-auto px-4 text-white">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Discover Your Soulmate</h2>
+              <p className="text-lg mb-6">LoveLink connects you with people who share your passions and dreams. Begin your love story now!</p>
+              <Link to="/login" className="bg-white text-rose-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100">Join Now</Link>
+            </div>
+            <div className="absolute bottom-8 left-8 text-left z-10">
+              <div className="text-lg font-medium uppercase text-black">Welcome to</div>
+              <div className="mt-2 text-2xl font-medium uppercase text-black">LoveLink</div>
+            </div>
+            <div className="absolute bottom-8 right-8 text-right z-10">
+              <div 
+                className="w-10 h-10 bg-center bg-no-repeat bg-cover rounded-full mb-2" 
+                style={{ backgroundImage: 'url(https://assets.codepen.io/595576/internal/avatars/users/default.png?format=auto&version=1689877807&width=80&height=80)' }}
+              />
+              <div className="text-sm text-black">Created by LoveLink Team</div>
+            </div>
+          </section>
+        );
+      }
+
+      function Login({ setUser }) {
+        const [email, setEmail] = React.useState('');
+        const [password, setPassword] = React.useState('');
+        const navigate = useNavigate();
+        console.log('Rendering Login');
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          console.log('Login submitted:', { email, password });
+          try {
+            if (email && password) {
+              setUser({ email, name: 'User', bio: '', interests: '' });
+              navigate('/swipe');
+            } else {
+              alert('Please enter email and password');
+            }
+          } catch (error) {
+            console.error('Login error:', error);
+            alert('An error occurred during login');
+          }
+        };
+
+        return (
+          <section className="min-h-screen flex items-center justify-center bg-gray-50 py-16 relative z-10">
+            <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+              <h2 className="text-3xl font-bold text-center mb-6">Login to LoveLink</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700"
+                >
+                  Login
+                </button>
+              </form>
+            </div>
+          </section>
+        );
+      }
+
+      function Profile({ user, setUser }) {
+        const [name, setName] = React.useState(user ? user.name : '');
+        const [bio, setBio] = React.useState(user ? user.bio : '');
+        const [interests, setInterests] = React.useState(user ? user.interests : '');
+        const navigate = useNavigate();
+        console.log('Rendering Profile, user:', user);
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          console.log('Profile submitted:', { name, bio, interests });
+          try {
+            setUser({ ...user, name, bio, interests });
+            alert('Profile updated!');
+            navigate('/swipe');
+          } catch (error) {
+            console.error('Profile update error:', error);
+            alert('An error occurred while updating profile');
+          }
+        };
+
+        return (
+          <section className="min-h-screen flex items-center justify-center bg-gray-50 py-16 relative z-10">
+            <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+              <h2 className="text-3xl font-bold text-center mb-6">Update Your Profile</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700">Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Bio</label>
+                  <textarea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="Tell us about yourself"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Interests</label>
+                  <input
+                    type="text"
+                    value={interests}
+                    onChange={(e) => setInterests(e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="E.g., hiking, music, travel"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700"
+                >
+                  Save Profile
+                </button>
+              </form>
+            </div>
+          </section>
+        );
+      }
+
+      function Swipe() {
+        const [profiles, setProfiles] = React.useState([
+          { id: 1, name: 'Alex', bio: 'Loves hiking and coffee', interests: 'Adventure, Books' },
+          { id: 2, name: 'Sam', bio: 'Music enthusiast', interests: 'Guitar, Concerts' },
+          { id: 3, name: 'Taylor', bio: 'Travel junkie', interests: 'Photography, Culture' },
+        ]);
+        const [currentIndex, setCurrentIndex] = React.useState(0);
+        const [swipeState, setSwipeState] = React.useState('');
+        console.log('Rendering Swipe, currentIndex:', currentIndex);
+
+        const handleSwipe = (direction) => {
+          console.log('Swiping:', direction);
+          try {
+            setSwipeState(direction);
+            setTimeout(() => {
+              setSwipeState('');
+              setCurrentIndex((prev) => prev + 1);
+            }, 300);
+          } catch (error) {
+            console.error('Swipe error:', error);
+            alert('An error occurred while swiping');
+          }
+        };
+
+        if (currentIndex >= profiles.length) {
+          return (
+            <section className="min-h-screen flex items-center justify-center bg-gray-50 py-16 relative z-10">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold">No more profiles to swipe!</h2>
+                <Link to="/" className="mt-4 inline-block bg-rose-600 text-white px-6 py-3 rounded-full">Back to Home</Link>
+              </div>
+            </section>
+          );
+        }
+
+        const currentProfile = profiles[currentIndex];
+
+        return (
+          <section className="min-h-screen flex items-center justify-center bg-gray-50 py-16 relative z-10">
+            <div className="max-w-md w-full">
+              <div className={`swipe-card bg-white p-6 rounded-lg shadow-md text-center ${swipeState}`}>
+                <div className="w-full h-64 bg-gray-200 rounded-md mb-4"></div>
+                <h3 className="text-xl font-semibold">{currentProfile.name}</h3>
+                <p className="text-gray-600 mb-2">{currentProfile.bio}</p>
+                <p className="text-gray-500">Interests: {currentProfile.interests}</p>
+                <div className="flex justify-center space-x-4 mt-4">
+                  <button
+                    onClick={() => handleSwipe('swiped-left')}
+                    className="bg-red-500 text-white p-3 rounded-full hover:bg-red-600"
+                  >
+                    ✗
+                  </button>
+                  <button
+                    onClick={() => handleSwipe('swiped-right')}
+                    className="bg-green-500 text-white p-3 rounded-full hover:bg-green-600"
+                  >
+                    ✓
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      function Features() {
+        const features = [
+          { title: "Personalized Matches", description: "Our advanced algorithm tailors matches to your unique preferences." },
+          { title: "Safe Messaging", description: "Enjoy secure, private conversations with encrypted chats." },
+          { title: "Exciting Events", description: "Meet singles through fun virtual and local meetups." },
+        ];
+        console.log('Rendering Features');
+
+        return (
+          <section id="features" className="py-16 bg-white relative z-10">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-center mb-12">What Makes LoveLink Special?</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {features.map((feature, index) => (
+                  <div key={index} className="p-6 bg-gray-50 rounded-lg shadow-md text-center">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      function Download() {
+        console.log('Rendering Download');
+        return (
+          <section id="download" className="py-16 bg-gray-50 text-center relative z-10">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-3xl font-bold mb-4">Get LoveLink Today</h2>
+              <p className="text-lg mb-6">Available on iOS and Android. Start your journey to love!</p>
+              <div className="flex justify-center space-x-4">
+                <a href="#" className="bg-gray-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-700">App Store</a>
+                <a href="#" className="bg-gray-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-700">Google Play</a>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      function Footer() {
+        console.log('Rendering Footer');
+        return (
+          <footer className="bg-gray-900 text-white py-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 text-center">
+              <p>© 2025 LoveLink. All rights reserved.</p>
+              <div className="mt-2">
+                <a href="#" className="text-gray-400 hover:text-white mx-2">Privacy Policy</a>
+                <a href="#" className="text-gray-400 hover:text-white mx-2">Terms of Service</a>
+              </div>
+            </div>
+          </footer>
+        );
+      }
+
+      function App() {
+        const [user, setUser] = React.useState(null);
+        console.log('Rendering App, user:', user);
+
+        const logout = () => {
+          console.log('Logging out');
+          setUser(null);
+        };
+
+        return (
+          <ErrorBoundary>
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <div>
+                      <Navbar user={user} logout={logout} />
+                      <Hero />
+                      <Features />
+                      <Download />
+                      <Footer />
+                    </div>
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <div>
+                      <Navbar user={user} logout={logout} />
+                      <Login setUser={setUser} />
+                      <Footer />
+                    </div>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <div>
+                      <Navbar user={user} logout={logout} />
+                      <Profile user={user} setUser={setUser} />
+                      <Footer />
+                    </div>
+                  }
+                />
+                <Route
+                  path="/swipe"
+                  element={
+                    <div>
+                      <Navbar user={user} logout={logout} />
+                      <Swipe />
+                      <Footer />
+                    </div>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </ErrorBoundary>
+        );
+      }
+
+      // Ensure scripts are loaded before rendering
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM fully loaded');
+        try {
+          const rootElement = document.getElementById('root');
+          if (!rootElement) {
+            console.error('Root element not found');
+            document.getElementById('fallback').style.display = 'block';
+            throw new Error('Root element not found');
+          }
+          if (!window.React || !window.ReactDOM) {
+            console.error('React or ReactDOM not loaded');
+            document.getElementById('fallback').style.display = 'block';
+            throw new Error('React or ReactDOM not loaded');
+          }
+          if (!window.ReactRouterDOM) {
+            console.error('ReactRouterDOM not loaded, rendering fallback app');
+            const root = ReactDOM.createRoot(rootElement);
+            root.render(<FallbackApp />);
+            console.log('Fallback app rendered successfully');
+            return;
+          }
+          const root = ReactDOM.createRoot(rootElement);
+          root.render(<App />);
+          console.log('Root rendered successfully');
+        } catch (error) {
+          console.error('Failed to render app:', error);
+          document.getElementById('fallback').style.display = 'block';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
